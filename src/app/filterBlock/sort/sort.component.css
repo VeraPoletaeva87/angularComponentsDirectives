@@ -1,0 +1,24 @@
+.button {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .margin-left {
+    margin-left: 12px;
+  }
+
+  .color-grey {
+    color: grey;
+  }
+
+  .color-blue {
+    color: #069;
+  }
+
+  .search {
+    border: none;
+  }
