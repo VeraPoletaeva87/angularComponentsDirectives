@@ -3,7 +3,7 @@
       class="input"
       type="search"
       id="search"
-      value="search"
+      (change)="searchChangeHandler($event)"
     />
-    <button class="button" (click)="this.searchClickHandler()">Search</button>
+    <app-button (click)="this.searchClickHandler()">Search</app-button>
   </div>

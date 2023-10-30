@@ -43,15 +43,6 @@
     height: 46px;
 }
 
-.button {
-    border: none;
-    height: 30px;
-    width: 80px;
-    color: white;
-    background-color: #0078b3;
-    border-radius: 5px;
-}
-
 .top-large {
     position: relative;
     top: 24px;

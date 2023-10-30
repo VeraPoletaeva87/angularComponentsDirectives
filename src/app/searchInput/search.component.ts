@@ -7,9 +7,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class SearchComponent {
   @Output() searchEmitter = new EventEmitter<boolean>();
+  @Output() searchTextEmitter = new EventEmitter<string>();
 
   public searchClickHandler() {
     this.searchEmitter.emit(true); 
+  }
+
+  searchChangeHandler(e: Event) {
+    this.searchTextEmitter.emit((e.target as HTMLInputElement).value);
   }
 
 }

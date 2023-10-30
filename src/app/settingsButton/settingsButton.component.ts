@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-settings',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./settingsButton.component.css']
 })
 export class SettingsComponent {
+  @Output() settingsEmitter = new EventEmitter<boolean>();
+
+  settingsClickHandler() {
+    this.settingsEmitter.emit(true);
+  } 
 
 }
