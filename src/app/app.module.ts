@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import AppComponent from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './searchInput/search.component';
 import { SortComponent } from './sort/sort.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
+import { LoginBlockComponent } from './loginBlock/loginBlock.component';
+import { LogoComponent } from './logo/logo.component';
 import { ListComponent } from './list/list.component';
 import { ItemComponent } from './item/item.component';
 
@@ -15,7 +16,8 @@ import { ItemComponent } from './item/item.component';
     HeaderComponent,
     SearchComponent,
     SortComponent,
-    AuthenticationComponent,
+    LoginBlockComponent,
+    LogoComponent,
     ListComponent,
     ItemComponent,
   ],
