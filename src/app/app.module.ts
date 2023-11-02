@@ -12,6 +12,8 @@ import { ItemComponent } from './item/item.component';
 import { SearchPipe } from './search.pipe';
 import { ButtonComponent } from './button/button.component';
 import { LoginBlockComponent } from './loginBlock/loginBlock.component';
+import { DetailsComponent } from './details/details.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,12 @@ import { LoginBlockComponent } from './loginBlock/loginBlock.component';
     ItemComponent,
     SearchPipe,
     ButtonComponent,
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,
-    LoginBlockComponent
+    LoginBlockComponent,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,13 @@
-<app-header (searchEmitter)="handleEventFromSearch()"
-            (sortEmitter)="handleEventFromSort($event)"
-            (textEmitter)="handleEventTextSearch($event)"></app-header>
+<app-header
+  (searchEmitter)="handleEventFromSearch()"
+  (sortEmitter)="handleEventFromSort($event)"
+  (textEmitter)="handleEventTextSearch($event)"
+></app-header>
+<router-outlet></router-outlet>
 <div *ngIf="hasSearch">
-    <app-list [sort]="this.sort" [direction]="this.direction" [search]="this.searchText"></app-list>
+  <app-list
+    [sort]="this.sort"
+    [direction]="this.direction"
+    [search]="this.searchText"
+  ></app-list>
 </div>

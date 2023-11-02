@@ -1,31 +1,16 @@
 import { Component, Input, HostBinding, ElementRef } from '@angular/core';
-
-interface Item {
-  snippet: {
-    title: string,
-    channelTitle: string,
-    publishedAt: Date,
-    thumbnails: {
-      default: {
-        url: string
-      }
-    }
-  },
-  statistics: {
-    viewCount: string,
-    likeCount: string,
-    dislikeCount: string,
-    commentCount: string
-  }
-}
+import { Router, RouterModule } from '@angular/router';
+import { Item } from '../types';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.css']
+  styleUrls: ['./item.component.css'],
 })
 export class ItemComponent {
   @Input() item!: Item;
+
+  constructor(private router: Router) {}
 
   borderColor: string = 'border-red';
 
@@ -39,18 +24,21 @@ export class ItemComponent {
     const weekAgo = new Date(d.setDate(d.getDate() - 7));
 
     if (publishDate >= halfYear && publishDate <= monthAgo) {
-      this.borderColor = 'border-yellow'; 
+      this.borderColor = 'border-yellow';
     }
 
     if (publishDate >= monthAgo && publishDate <= weekAgo) {
-      this.borderColor = 'border-green'; 
+      this.borderColor = 'border-green';
     }
 
     if (publishDate >= weekAgo) {
-      this.borderColor = 'border-blue'; 
+      this.borderColor = 'border-blue';
     }
 
     return this.borderColor;
-   }
+  }
 
+  clickHandler() {
+    this.router.navigate(['/details/{{this.item.id}}', { id: this.item.id }]);
+  }
 }

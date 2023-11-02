@@ -1,25 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SearchPipe } from '../search.pipe';
 import * as dataJson from '../../assets/response.json';
-
-interface Item {
-  snippet: {
-    title: string,
-    channelTitle: string,
-    publishedAt: Date,
-    thumbnails: {
-      default: {
-        url: string
-      }
-    }
-  },
-  statistics: {
-    viewCount: string,
-    likeCount: string,
-    dislikeCount: string,
-    commentCount: string
-  }
-}
+import { Item } from '../types';
 
 interface DataElement {
   snippet: object;
@@ -28,7 +10,7 @@ interface DataElement {
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.css'],
 })
 export class ListComponent {
   @Input() sort!: string;
@@ -71,10 +53,9 @@ export class ListComponent {
   ngOnInit() {
     this.searchText = this.search;
     this.sortItems();
-    
-}
+  }
 
   ngOnChanges() {
     this.sortItems();
-}
+  }
 }

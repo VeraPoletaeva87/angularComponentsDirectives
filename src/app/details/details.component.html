@@ -1,0 +1,36 @@
+<div class="flex details-block">
+  <div class="back-button" (click)="backClickHandler()">
+      <img src="assets/images/backIcon.png">
+  </div>
+  <div class="flex shadow">
+    <img class="image" src="{{ this.item.snippet.thumbnails.standard.url }}" />
+    <div class="info-block">
+      <div>
+        <div class="spread">
+          <span class="title">{{ this.item.snippet.channelTitle }} {{ this.item.snippet.title }}</span>
+          <span class="small">{{ this.item.snippet.publishedAt }}</span>
+        </div>
+        <div class="description">Description:</div>
+        <div class="small">{{ this.item.snippet.description }}</div>
+      </div>
+      <div class="statistics">
+        <img src="assets/images/viewsIcon.png" />
+        <span class="margin-small font-small">{{
+            this.item.statistics.viewCount
+        }}</span>
+        <img class="margin-medium" src="assets/images/likesIcon.png" />
+        <span class="margin-small font-small">{{
+            this.item.statistics.likeCount
+        }}</span>
+        <img class="margin-medium" src="assets/images/dislikesIcon.png" />
+        <span class="margin-small font-small">{{
+            this.item.statistics.dislikeCount
+        }}</span>
+        <img class="margin-medium" src="assets/images/commentsIcon.png" />
+        <span class="margin-small font-small">{{
+            this.item.statistics.commentCount
+        }}</span>
+      </div>
+    </div>
+  </div>
+</div>
