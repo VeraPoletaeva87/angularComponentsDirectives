@@ -14,6 +14,9 @@ import { ButtonComponent } from './button/button.component';
 import { LoginBlockComponent } from './loginBlock/loginBlock.component';
 import { DetailsComponent } from './details/details.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { AppRoutingModule } from './app-routing.module';
     SearchPipe,
     ButtonComponent,
     DetailsComponent,
+    LoginPageComponent,
+    PageNotFoundComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

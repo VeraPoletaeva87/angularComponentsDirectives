@@ -21,6 +21,11 @@
     left: 420px;
 }
 
+.logout-position {
+    position: relative;
+    left: 500px;
+}
+
 .margin-top {
     margin-top: 40px;
 }

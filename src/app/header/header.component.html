@@ -5,6 +5,7 @@
                     (searchTextEmitter)="handleEventTextSearch($event)"></app-search>
         <app-settings class="margin" (settingsEmitter)="handleEventFromSettings()"></app-settings>
         <app-login-block class="login-position"></app-login-block>
+        <app-button class="logout-position">Log out</app-button> 
     </div>
     <div *ngIf="showSettings" class="margin-top">
         <app-sort class="sort-position" 
