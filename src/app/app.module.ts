@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import CoreModule from './core/modules/core.module';
 import { AuthModule } from './auth/modules/auth.module';
 import { YouTubeModule } from './youTube/modules/youTube.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, SearchPipe],
@@ -16,7 +17,7 @@ import { YouTubeModule } from './youTube/modules/youTube.module';
     YouTubeModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],
 })
 export default class AppModule {}
