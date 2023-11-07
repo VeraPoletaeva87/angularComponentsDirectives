@@ -8,6 +8,7 @@ import { AuthModule } from './auth/modules/auth.module';
 import { YouTubeModule } from './youTube/modules/youTube.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
+
 @NgModule({
   declarations: [AppComponent, SearchPipe],
   imports: [
@@ -15,7 +16,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AuthModule,
     CoreModule,
     YouTubeModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],

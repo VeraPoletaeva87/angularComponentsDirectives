@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -10,19 +11,21 @@ import { LoginService } from '../../services/login.service';
 export class LoginPageComponent {
   constructor(private loginService: LoginService, private router: Router) {}
 
-  login: string = '';
-  password: string = '';
+  loginForm = new FormGroup({
+    login: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])
+  });
 
   loginHandler() {
-    this.loginService.saveUser(this.login, this.password);
+   // this.loginService.saveUser(this.login, this.password);
     this.router.navigate(['/main']);
   }
 
-  loginChangeHandler(e: Event) {
-    this.login = (e.target as HTMLInputElement).value;
+  updateLogin(e: Event) {
+    this.loginForm.patchValue({login: (e.target as HTMLInputElement).value});
   }
 
-  passwordChangeHandler(e: Event) {
-    this.password = (e.target as HTMLInputElement).value;
+  updatePassword(e: Event) {
+    this.loginForm.patchValue({password: (e.target as HTMLInputElement).value});
   }
 }

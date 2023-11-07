@@ -1,14 +1,35 @@
 <div class="login-block">
     <div class="bold-text">Login</div>
-    <div class="small-text">login</div>
-    <input  class="input"
+    <form [formGroup]="loginForm" (ngSubmit)="loginHandler()">
+        <label class="small-text" for="login">login </label>
+        <input  class="input"
             type="text"
-            value="{{this.login}}"
-            (change)="loginChangeHandler($event)"/>
-    <div class="small-text">password</div>
-    <input  class="input"
+            formControlName="login"
+            required
+            email
+            (change)="updateLogin($event)"/>
+        <div *ngIf="loginForm.controls['login'].invalid && 
+                (loginForm.controls['login'].dirty || loginForm.controls['login'].touched)" class="invalid">
+             <div *ngIf="loginForm.controls['login'].errors?.['required']">
+                Please enter a login email
+             </div>
+             <div *ngIf="loginForm.controls['login'].errors?.['email']">
+                The login email is invalid
+             </div>
+        </div>
+        <label class="small-text" for="password">password </label>
+        <input  class="input"
             type="password"
-            value="{{this.password}}"
-            (change)="passwordChangeHandler($event)"/>
-    <app-button class="login-button" (click)="loginHandler()">Login</app-button>        
+            name="password"
+            required
+            formControlName="password"
+            (change)="updatePassword($event)"/>  
+            <div *ngIf="loginForm.controls['password'].invalid && 
+            (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="invalid">
+         <div *ngIf="loginForm.controls['password'].errors?.['required']">
+                Please enter a password
+         </div>
+        </div>     
+        <app-button class="login-button" (click)="loginHandler()">Login</app-button>  
+    </form>      
 </div>
