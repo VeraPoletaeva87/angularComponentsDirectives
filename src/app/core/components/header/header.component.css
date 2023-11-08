@@ -26,6 +26,11 @@
     left: 500px;
 }
 
+.create-position {
+    position: relative;
+    left: 360px;
+}
+
 .margin-top {
     margin-top: 40px;
 }

@@ -2,7 +2,8 @@
     <div class="bold-text">Login</div>
     <form [formGroup]="loginForm" (ngSubmit)="loginHandler()">
         <label class="small-text" for="login">login </label>
-        <input  class="input"
+        <input  class="input {{loginForm.controls['login'].invalid && 
+        (loginForm.controls['login'].dirty || loginForm.controls['login'].touched) ? 'red-border' : ''}}"
             type="text"
             formControlName="login"
             required
@@ -18,7 +19,8 @@
              </div>
         </div>
         <label class="small-text" for="password">password </label>
-        <input  class="input"
+        <input  class="input {{loginForm.controls['password'].invalid && 
+        (loginForm.controls['password'].dirty || loginForm.controls['password'].touched) ? 'red-border' : ''}}"
             type="password"
             name="password"
             required
@@ -29,7 +31,10 @@
          <div *ngIf="loginForm.controls['password'].errors?.['required']">
                 Please enter a password
          </div>
+         <div class="invalid" *ngIf="loginForm.controls['password'].errors?.['passwordStrength']">
+            Your password isn't strong enough. {{loginForm.controls['password'].errors?.['passwordStrength']}}
+        </div>
         </div>     
-        <app-button class="login-button" (click)="loginHandler()">Login</app-button>  
+        <app-button class="login-button" (click)="loginHandler()">Login</app-button>         
     </form>      
 </div>

@@ -4,6 +4,7 @@
         <app-search (searchEmitter)="handleEventFromSearch()"
                     (searchTextEmitter)="handleEventTextSearch($event)"></app-search>
         <app-settings class="margin" (settingsEmitter)="handleEventFromSettings()"></app-settings>
+        <app-button (click)=cardCreateHandler() class="create-position">Create card</app-button> 
         <app-login-block class="login-position"></app-login-block>
         <app-button (click)=logoutClickHandler() class="logout-position">Log out</app-button> 
     </div>

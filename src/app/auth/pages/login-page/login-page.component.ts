@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { passwordStrengthValidator } from '../../services/validators';
 
 @Component({
   selector: 'app-login-page',
@@ -13,11 +14,11 @@ export class LoginPageComponent {
 
   loginForm = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required, Validators.minLength(8), passwordStrengthValidator()])
   });
 
   loginHandler() {
-   // this.loginService.saveUser(this.login, this.password);
+    this.loginService.saveUser(this.loginForm.controls.login.value || '', this.loginForm.controls.password.value || '');
     this.router.navigate(['/main']);
   }
 

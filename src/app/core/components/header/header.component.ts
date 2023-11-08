@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { LoginService } from '../../../auth/services/login.service';
+import { Router } from '@angular/router';
 
 interface EmitterValue {
   value: string;
@@ -16,7 +17,8 @@ export class HeaderComponent {
   @Output() sortEmitter = new EventEmitter<EmitterValue>();
   @Output() textEmitter = new EventEmitter<string>();
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService,
+    private router: Router) {}
 
   showSettings: boolean = false;
 
@@ -38,5 +40,9 @@ export class HeaderComponent {
 
   logoutClickHandler() {
     this.loginService.logOut();
+  }
+
+  cardCreateHandler() {
+    this.router.navigate(['/create-card']);
   }
 }

@@ -1,6 +1,5 @@
-.login-block {
+.card-block {
     width: 330px;
-    height: 200px;
     background-color: #e5e1e1;
     padding: 15px;
     margin-left: 34%;
@@ -28,14 +27,18 @@
     background-color: rgb(187, 182, 182);
 }
 
-.login-button {
-    position: relative;
-    top: 20px;
-    left: 250px;
+.form-button {
+    margin-left: 12px;
+    margin-top: 20px;
 }
 
 .invalid {
     color: red;
+}
+
+.baseline {
+    display: flex;
+    justify-content: center;
 }
 
 .red-border {

@@ -1,0 +1,90 @@
+<div class="card-block">
+    <div class="bold-text">Create new card</div>
+    <form [formGroup]="cardForm">
+        <label class="small-text" for="title">Title </label>
+        <input  class="input {{cardForm.controls['title'].invalid && 
+        (cardForm.controls['title'].dirty || cardForm.controls['title'].touched) ? 'red-border' : ''}}"
+            type="text"
+            required
+            minlength
+            maxlength
+            formControlName="title"
+            (change)="updateTitle($event)"/>
+        <div *ngIf="cardForm.controls['title'].invalid && 
+                (cardForm.controls['title'].dirty || cardForm.controls['title'].touched)" class="invalid">
+             <div *ngIf="cardForm.controls['title'].errors?.['required']">
+                Please enter a title
+             </div>
+             <div *ngIf="cardForm.controls['title'].errors?.['minlength']">
+                The title is too short
+             </div>
+             <div *ngIf="cardForm.controls['title'].errors?.['maxlength']">
+                The title is too long
+             </div>
+        </div>
+        <label class="small-text" for="description">Description </label>
+        <input  class="input {{cardForm.controls['description'].invalid && 
+        (cardForm.controls['description'].dirty || cardForm.controls['description'].touched) ? 'red-border' : ''}}"
+            type="text"
+            name="description"
+            maxlength
+            formControlName="description"
+            (change)="updateDescription($event)"/>  
+            <div *ngIf="cardForm.controls['description'].invalid && 
+            (cardForm.controls['description'].dirty || cardForm.controls['description'].touched)" class="invalid">
+         <div *ngIf="cardForm.controls['description'].errors?.['maxlength']">
+            The description is too long
+         </div>
+        </div> 
+        <label class="small-text" for="image">img </label>
+        <input  class="input {{cardForm.controls['image'].invalid && 
+        (cardForm.controls['image'].dirty || cardForm.controls['image'].touched) ? 'red-border' : ''}}"
+            type="text"
+            required
+            minlength
+            maxlength
+            formControlName="image"
+            (change)="updateImage($event)"/>
+        <div *ngIf="cardForm.controls['image'].invalid && 
+                (cardForm.controls['image'].dirty || cardForm.controls['image'].touched)" class="invalid">
+             <div *ngIf="cardForm.controls['image'].errors?.['required']">
+                Please enter a link to the image
+             </div>
+        </div>    
+        <label class="small-text" for="video">Link video </label>
+        <input  class="input {{cardForm.controls['video'].invalid && 
+        (cardForm.controls['video'].dirty || cardForm.controls['video'].touched) ? 'red-border' : ''}}"
+            type="text"
+            required
+            minlength
+            maxlength
+            formControlName="video"
+            (change)="updateVideo($event)"/>
+        <div *ngIf="cardForm.controls['video'].invalid && 
+                (cardForm.controls['video'].dirty || cardForm.controls['video'].touched)" class="invalid">
+             <div *ngIf="cardForm.controls['video'].errors?.['required']">
+                Please enter a link to the video
+             </div>
+        </div> 
+        <label class="small-text" for="date">Creation date </label>
+        <input  class="input {{cardForm.controls['date'].invalid && 
+        (cardForm.controls['date'].dirty || cardForm.controls['date'].touched) ? 'red-border' : ''}}"
+            type="date"
+            required
+            formControlName="date"/>
+        <div *ngIf="cardForm.controls['date'].invalid && 
+                (cardForm.controls['date'].dirty || cardForm.controls['date'].touched)" class="invalid">
+             <div *ngIf="cardForm.controls['date'].errors?.['required']">
+                Please enter a creation date
+             </div>
+             <div class="invalid" *ngIf="cardForm.controls['date'].errors?.['dateInvalid']">
+               {{cardForm.controls['date'].errors?.['dateInvalid']}}
+            </div>
+        </div> 
+        <div class="baseline">
+            <app-button class="form-button" (click)="addTagHandler()">Add tag</app-button> 
+            <app-button class="form-button" (click)="resetHandler()">Reset</app-button>    
+            <app-button class="form-button" (click)="cardSaveHandler()">Create card</app-button>
+        </div>      
+    </form>      
+</div>
