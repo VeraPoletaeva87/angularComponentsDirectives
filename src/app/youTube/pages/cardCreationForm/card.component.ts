@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { dateValidator } from '../../services/validators';
 
 @Component({
@@ -9,26 +9,40 @@ import { dateValidator } from '../../services/validators';
   styleUrls: ['./card.component.css'],
 })
 export class CreateCardComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
 
-  cardForm = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-    description: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-    image: new FormControl('', [Validators.required]),
-    video: new FormControl('', [Validators.required]),
-    date: new FormControl('', [Validators.required, dateValidator()])
-  });
+  cardForm = this.formBuilder.group({
+    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    description: ['', [Validators.required, Validators.maxLength(255)]],
+    image: ['', [Validators.required]],
+    video: ['', [Validators.required]],
+    date: ['', [Validators.required, dateValidator()]],
+    tags: this.formBuilder.array([['', [Validators.required]]])
+});
+
+  get title(): AbstractControl<string | null, string | null> | null { return this.cardForm.get('title'); }
+  get description(): AbstractControl<string | null, string | null> | null { return this.cardForm.get('description'); }
+  get image(): AbstractControl<string | null, string | null> | null { return this.cardForm.get('image'); }
+  get video(): AbstractControl<string | null, string | null> | null { return this.cardForm.get('video'); }
+  get date(): AbstractControl<string | null, string | null> | null { return this.cardForm.get('date'); }
 
   cardSaveHandler() {
-    this.router.navigate(['/main']);
-   }
+    if (!this.cardForm.invalid) {
+      this.router.navigate(['/main']);
+    }else {
+      this.cardForm.markAllAsTouched();
+    } 
+   } 
 
   resetHandler() {
     this.cardForm.reset();
   }
 
   addTagHandler() {
-    // this.router.navigate(['/main']);
+    const tags = this.cardForm.controls.tags;
+    if (tags.length < 5) {
+      this.cardForm.controls.tags.push(new FormControl('', [Validators.required]));
+    }
    }
 
   updateTitle(e: Event) {

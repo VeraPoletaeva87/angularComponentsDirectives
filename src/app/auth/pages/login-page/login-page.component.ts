@@ -18,8 +18,12 @@ export class LoginPageComponent {
   });
 
   loginHandler() {
-    this.loginService.saveUser(this.loginForm.controls.login.value || '', this.loginForm.controls.password.value || '');
-    this.router.navigate(['/main']);
+    if (!this.loginForm.invalid) {
+      this.loginService.saveUser(this.loginForm.controls.login.value || '', this.loginForm.controls.password.value || '');
+      this.router.navigate(['/main']);
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
 
   updateLogin(e: Event) {

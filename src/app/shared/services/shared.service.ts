@@ -35,11 +35,6 @@ handleEventFromSearch() {
     this.hasSearch = true;
   }
 
-  // handleEventFromSort(value: EmitterValue) {
-  //   this.sort = value.value;
-  //   this.direction = value.direction;
-  // }
-
   handleEventTextSearch(value: boolean) {
     this.hasSearch = value;
   }
