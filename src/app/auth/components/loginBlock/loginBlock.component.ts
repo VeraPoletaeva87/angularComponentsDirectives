@@ -24,7 +24,7 @@ export class LoginBlockComponent {
   public subscription : Subscription;
 
   ngOnInit() {
-    this.loginService.updateLogged();
+    this.loggedIn = this.loginService.isLoggedIn();
   }
 
   clickHandler() {
