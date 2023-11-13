@@ -1,6 +1,6 @@
 import { Component, Input, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
-import { Item } from '../../../shared/types';
+import { WholeVideoData } from '../../../shared/types';
 
 @Component({
   selector: 'app-item',
@@ -8,7 +8,7 @@ import { Item } from '../../../shared/types';
   styleUrls: ['./item.component.css'],
 })
 export class ItemComponent {
-  @Input() item!: Item;
+  @Input() item!: WholeVideoData;
 
   constructor(private router: Router) {}
 

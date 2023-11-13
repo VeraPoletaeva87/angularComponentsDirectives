@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Item } from '../../../shared/types';
+import { WholeVideoData } from '../../../shared/types';
 import { YouTubeService } from '../../services/youTube.service';
 
 @Component({
@@ -14,11 +14,36 @@ export class DetailsComponent {
     private service: YouTubeService,
     private router: Router
   ) {}
-  @Input() item!: Item;
+
+  item: WholeVideoData = {
+    id: '',
+    snippet: {
+      title: '',
+      description: '',
+      channelTitle: '',
+      publishedAt: new Date,
+      thumbnails: {
+        default: {
+          url: '',
+        },
+        high: {
+          url: '',
+        }
+      }
+    },
+    statistics: {
+      likeCount: '',
+      favoriteCount: '',
+      commentCount: '',
+      viewCount: ''
+    }
+  };
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.item = this.service.getItem(id);
+    this.service.getWholeItemData(id).then((res) => {
+      this.item = res;
+    });
   }
 
   backClickHandler() {

@@ -22,20 +22,12 @@ export class HeaderComponent {
 
   showSettings: boolean = false;
 
-  handleEventFromSearch() {
-    this.searchEmitter.emit(true);
-  }
-
   handleEventFromSettings() {
     this.showSettings = !this.showSettings;
   }
 
   handleEventFromSort(value: EmitterValue) {
     this.sortEmitter.emit(value);
-  }
-
-  handleEventTextSearch(value: string) {
-    this.textEmitter.emit(value);
   }
 
   logoutClickHandler() {

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { YouTubeService } from '../../services/youTube.service';
-import { Item } from '../../../shared/types';
+import { Item, WholeVideoData } from '../../../shared/types';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-list',
@@ -8,7 +9,7 @@ import { Item } from '../../../shared/types';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent {
-  constructor(private service: YouTubeService) {}
+  constructor(private service: YouTubeService, private sharedService: SharedService) {}
 
   @Input() sort!: string;
   @Input() direction!: boolean;
@@ -17,33 +18,29 @@ export class ListComponent {
   searchText: string = '';
 
   items: Item[] = [];
+  wholeData: WholeVideoData[] = [];
 
   sortItems() {
-    const data = this.service.getItems();
+    
+    this.service.getItems(this.searchText).then((data: Item[]) => {
+      this.wholeData = [];
+      data.forEach((elem) => {
+        //make request for statictics and put data in one common array
+        this.service.getStatistics(elem.id.videoId).then((res) => {
+          this.wholeData.push({id:elem.id.videoId, snippet: elem.snippet, statistics: res});
+        })
+      });
+      this.items = data.sort((a: Item, b: Item) => {
+        const dateA = new Date(a.snippet.publishedAt).getTime();
+        const dateB = new Date(b.snippet.publishedAt).getTime();
+        if (this.sort === 'date' && this.direction) {
+        return dateA - dateB; 
+        } else {
+          return dateB - dateA;
+        }
 
-    this.items = data.sort((a: Item, b: Item) => {
-      const dateA = new Date(a.snippet.publishedAt).getTime();
-      const dateB = new Date(b.snippet.publishedAt).getTime();
-      const viewA = +a.statistics.viewCount;
-      const viewB = +b.statistics.viewCount;
-
-      if (this.sort === 'date' && this.direction) {
-        return dateA !== dateB ? dateA - dateB : viewA - viewB;
-      }
-
-      if (this.sort === 'date' && !this.direction) {
-        return dateA !== dateB ? dateB - dateA : viewA - viewB;
-      }
-
-      if (this.sort === 'view' && this.direction) {
-        return viewA !== viewB ? viewA - viewB : dateA - dateB;
-      }
-
-      if (this.sort === 'view' && !this.direction) {
-        return viewA !== viewB ? viewB - viewA : dateA - dateB;
-      }
-
-      return 0;
+        // todo: return sorting by both fields using wholeData
+      });
     });
   }
 
@@ -53,6 +50,7 @@ export class ListComponent {
   }
 
   ngOnChanges() {
+    this.searchText = this.search;
     this.sortItems();
   }
 }
