@@ -30,10 +30,6 @@ export class HeaderComponent {
     this.sortEmitter.emit(value);
   }
 
-  logoutClickHandler() {
-    this.loginService.logOut();
-  }
-
   cardCreateHandler() {
     this.router.navigate(['/create-card']);
   }

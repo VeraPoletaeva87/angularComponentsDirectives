@@ -5,7 +5,7 @@ import { LoginBlockComponent } from '../../auth/components/loginBlock/loginBlock
 
 @NgModule({
   declarations: [ButtonComponent],
-  imports: [LoginBlockComponent],
-  exports: [ButtonComponent, LoginBlockComponent],
+  imports: [],
+  exports: [ButtonComponent],
 })
 export default class SharedModule {}

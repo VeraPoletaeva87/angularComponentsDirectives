@@ -19,7 +19,7 @@ export class MainComponent {
     private sharedService: SharedService
   ) {
     this.subscription = this.sharedService.getValue().subscribe((value) => {
-      this.searchText = value;
+    this.searchText = value;
     })
   }
 

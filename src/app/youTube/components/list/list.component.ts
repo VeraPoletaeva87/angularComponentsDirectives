@@ -38,8 +38,6 @@ export class ListComponent {
         } else {
           return dateB - dateA;
         }
-
-        // todo: return sorting by both fields using wholeData
       });
     });
   }

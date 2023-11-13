@@ -1,5 +1,5 @@
 import { Injectable, Input } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, debounce, debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 
 interface Props {
@@ -23,7 +23,12 @@ setValue(value: string): void {
 }
 
 getValue(): Observable<string> {
-  return this.valueObs.asObservable();
+  return this.valueObs.asObservable()
+  .pipe(
+    filter((value: string) => value.length >=3),
+    debounceTime(300),
+    distinctUntilChanged()
+  );
 }
 
 updateComponent(): void {

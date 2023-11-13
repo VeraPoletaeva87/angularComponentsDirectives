@@ -9,11 +9,11 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class YouTubeService {
-  API_KEY = 'AIzaSyAnIEK8H9Vw7vb_F7oaxvkxwclmLTnHELU';
+  API_KEY = 'AIzaSyB0fgxbiZ__2ZQKwB-Wa7kqEsq5cIVOi4Q';
 
   getItems(searchString: string): Promise<Item[]> {
     // get list of videos
-    const urlBase = `https://youtube.googleapis.com/youtube/v3/search?key=${this.API_KEY}&part=snippet&maxResults=2`;
+    const urlBase = `https://youtube.googleapis.com/youtube/v3/search?key=${this.API_KEY}&part=snippet&maxResults=5`;
     const params = new URLSearchParams({ q: searchString });
     const paramsString = params.toString();
     let url = searchString ? `${urlBase}&${paramsString}` : urlBase;
@@ -35,7 +35,12 @@ export class YouTubeService {
         return response.json() as Promise<StatisticsData>;
       })
       .then((data) => {
-        return data.items[0].statistics;
+        return data.items[0] ? data.items[0].statistics : 
+        {  
+          likeCount: '',
+          favoriteCount: '',
+          commentCount: '',
+          viewCount: ''};
       });
   }
 
