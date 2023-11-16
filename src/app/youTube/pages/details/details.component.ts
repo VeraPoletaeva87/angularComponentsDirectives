@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WholeVideoData } from '../../../shared/types';
+import { Item, Statistics, WholeVideoData } from '../../../shared/types';
 import { YouTubeService } from '../../services/youTube.service';
 
 @Component({
@@ -18,18 +18,30 @@ export class DetailsComponent {
   item: WholeVideoData = {
     id: '',
     snippet: {
+      publishedAt: new Date,
+      channelId: '',
+      channelTitle: '',
       title: '',
       description: '',
-      channelTitle: '',
-      publishedAt: new Date,
       thumbnails: {
         default: {
           url: '',
+          width: 0,
+          height: 0
+        },
+        medium: {
+          url: '',
+          width: 0,
+          height: 0
         },
         high: {
           url: '',
+          width: 0,
+          height: 0
         }
-      }
+      },
+      liveBroadcastContent: '',
+      publishTime: new Date
     },
     statistics: {
       likeCount: '',
@@ -41,9 +53,12 @@ export class DetailsComponent {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.youTubeService.getWholeItemData(id).then((res) => {
-      this.item = res;
-    });
+
+    this.youTubeService.getItem(id).subscribe((data: Item) => {
+      this.youTubeService.getStatistics(data.id.videoId).subscribe((res: Statistics) => {
+        this.item = {id:data.id.videoId, snippet: data.snippet, statistics: res};
+       });
+   });
   }
 
   backClickHandler() {

@@ -39,40 +39,27 @@ export class YouTubeService {
     );
   }
 
-  getStatistics(id: string): Promise<Statistics> {
+  getStatistics(id: string): Observable<Statistics> {
+    const empty = {
+      likeCount: '',
+      favoriteCount: '',
+      commentCount: '',
+      viewCount: ''
+    };
     // get Statistics for the video
-    const urlBase = `https://youtube.googleapis.com/youtube/v3/videos?key=${this.API_KEY}&part=statistics&id=${id}`;
-    return fetch(urlBase)
-      .then((response) => {
-        return response.json() as Promise<StatisticsData>;
-      })
-      .then((data) => {
-        return data.items[0] ? data.items[0].statistics : 
-        {  
-          likeCount: '',
-          favoriteCount: '',
-          commentCount: '',
-          viewCount: ''};
-      });
+    const urlBase = `https://youtube.googleapis.com/youtube/v3/videos?part=statistics&id=${id}`;
+    return this.http.get<StatisticsData>(urlBase)
+    .pipe(
+        map((data: StatisticsData) => data.items[0].statistics),
+        catchError(this.handleError<Statistics>('getStatistics', empty))
+    );
   }
 
-  getItem(id: string): Promise<Item> {
-    const urlBase = `https://youtube.googleapis.com/youtube/v3/search?key=${this.API_KEY}&part=snippet&q=${id}`;
-   
-    return fetch(urlBase)
-      .then((response) => {
-        return response.json() as Promise<ResultData>;
-      }).
-      then((data) => {
-        return data.items[0];
-      });
+  getItem(id: string): Observable<Item> {
+    const urlBase = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${id}`;
+    return this.http.get<ResultData>(urlBase)
+    .pipe(
+        map((data: ResultData) => data.items[0])
+    );
   }
-
-  getWholeItemData(id:string): Promise<WholeVideoData> {
-    return this.getItem(id).then((data: Item) => {
-        return this.getStatistics(data.id.videoId).then((res) => {
-           return {id:data.id.videoId, snippet: data.snippet, statistics: res}; 
-        });
-    });
-}
 }

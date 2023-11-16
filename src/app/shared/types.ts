@@ -1,58 +1,23 @@
 export interface Item {
+  kind: string,
+  etag: string,
   id: {
-    kind: string;
-    videoId: string;
+    kind: string,
+    videoId: string
   },
-  snippet: {
-    title: string;
-    description: string;
-    channelTitle: string;
-    publishedAt: Date;
-    thumbnails: {
-      default: {
-        url: string;
-      };
-      high: {
-        url: string;
-      };
-    };
-  };
+  snippet: Snippet
 }
 
 export interface ResultData {
-    kind: string,
-    etag: string,
-    nextPageToken: string,
-    regionCode: string,
-    pageInfo: {
-      totalResults: number,
-      resultsPerPage: number
-    },
-    items: Item[]
-}
-
-export interface WholeVideoData {
-  id: string,
-  snippet: {
-    title: string;
-    description: string;
-    channelTitle: string;
-    publishedAt: Date;
-    thumbnails: {
-      default: {
-        url: string;
-      };
-      high: {
-        url: string;
-      };
-    };
-  };
-  statistics: {
-    likeCount: string,
-    favoriteCount: string,
-    commentCount: string,
-    viewCount: string
-  }
+  kind: string,
+  etag: string,
+  nextPageToken: string,
+  regionCode: string,
+  pageInfo: {
+    totalResults: number,
+    resultsPerPage: number
+  },
+  items: Item[]
 }
 
 export interface Statistics {
@@ -62,19 +27,46 @@ export interface Statistics {
   viewCount: string
 };
 
+export interface Snippet {
+  publishedAt: Date,
+  channelId: string,
+  channelTitle: string,
+  title: string,
+  description: string,
+  thumbnails: {
+    default: {
+      url: string,
+      width: number,
+      height: number
+    },
+    medium: {
+      url: string,
+      width: number,
+      height: number
+    },
+    high: {
+      url: string,
+      width: number,
+      height: number
+    }
+  },
+  liveBroadcastContent: string,
+  publishTime: Date
+}
+
+export interface WholeVideoData {
+  id: string,
+  snippet: Snippet,
+  statistics: Statistics
+}
+
 export interface StatisticsData {
   items: [
     {
       kind: string,
       etag: string,
       id: string,
-      statistics: {
-        likeCount: string,
-        favoriteCount: string,
-        viewCount: string,
-        commentCount: string
-      }
+      statistics: Statistics
     }
-    
   ]
 }
