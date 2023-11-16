@@ -9,10 +9,9 @@ import { WholeVideoData } from '../../../shared/types';
 })
 export class ItemComponent {
   @Input() item!: WholeVideoData;
+  borderColor: string = 'border-red';
 
   constructor(private router: Router) {}
-
-  borderColor: string = 'border-red';
 
   @HostBinding('class') get color() {
     const publishDate = new Date(this.item.snippet.publishedAt);

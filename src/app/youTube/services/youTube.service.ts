@@ -6,25 +6,37 @@ import {
   StatisticsData,
   WholeVideoData
 } from '../../shared/types';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class YouTubeService {
   API_KEY = 'AIzaSyB0fgxbiZ__2ZQKwB-Wa7kqEsq5cIVOi4Q';
 
-  getItems(searchString: string): Promise<Item[]> {
+  constructor(
+    private http: HttpClient) { }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+  return (error: string): Observable<T> => {
+
+    console.error(error); 
+
+    return of(result as T);
+  };
+}  
+
+  getItems(searchString: string): Observable<Item[]> {
     // get list of videos
-    const urlBase = `https://youtube.googleapis.com/youtube/v3/search?key=${this.API_KEY}&part=snippet&maxResults=5`;
+    const urlBase = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=2`;
     const params = new URLSearchParams({ q: searchString });
     const paramsString = params.toString();
     let url = searchString ? `${urlBase}&${paramsString}` : urlBase;
 
-    return fetch(url)
-      .then((response) => {
-        return response.json() as Promise<ResultData>;
-      })
-      .then((data) => {
-        return data.items;
-      });
+    return this.http.get<ResultData>(url)
+    .pipe(
+        map((results: ResultData) => results.items),
+        catchError(this.handleError<Item[]>('getItems', []))
+    );
   }
 
   getStatistics(id: string): Promise<Statistics> {

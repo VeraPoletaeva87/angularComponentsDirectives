@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { YouTubeService } from '../../services/youTube.service';
 import { Item, WholeVideoData } from '../../../shared/types';
-import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-list',
@@ -9,7 +8,6 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent {
-  constructor(private service: YouTubeService, private sharedService: SharedService) {}
 
   @Input() sort!: string;
   @Input() direction!: boolean;
@@ -17,29 +15,31 @@ export class ListComponent {
 
   searchText: string = '';
 
-  items: Item[] = [];
+  items: WholeVideoData[] = [];
   wholeData: WholeVideoData[] = [];
 
+  constructor(private youTubeService: YouTubeService) {}
+
   sortItems() {
-    
-    this.service.getItems(this.searchText).then((data: Item[]) => {
+    this.youTubeService.getItems(this.searchText)
+    .subscribe((data: Item[]) => {
       this.wholeData = [];
       data.forEach((elem) => {
         //make request for statictics and put data in one common array
-        this.service.getStatistics(elem.id.videoId).then((res) => {
+        this.youTubeService.getStatistics(elem.id.videoId).then((res) => {
           this.wholeData.push({id:elem.id.videoId, snippet: elem.snippet, statistics: res});
         })
-      });
-      this.items = data.sort((a: Item, b: Item) => {
-        const dateA = new Date(a.snippet.publishedAt).getTime();
-        const dateB = new Date(b.snippet.publishedAt).getTime();
-        if (this.sort === 'date' && this.direction) {
-        return dateA - dateB; 
-        } else {
-          return dateB - dateA;
-        }
-      });
     });
+    this.items = this.wholeData.sort((a: WholeVideoData, b: WholeVideoData) => {
+      const dateA = new Date(a.snippet.publishedAt).getTime();
+      const dateB = new Date(b.snippet.publishedAt).getTime();
+      if (this.sort === 'date' && this.direction) {
+      return dateA - dateB; 
+      } else {
+        return dateB - dateA;
+      }
+    });
+  });
   }
 
   ngOnInit() {

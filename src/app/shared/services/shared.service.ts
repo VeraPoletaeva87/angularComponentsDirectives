@@ -1,5 +1,5 @@
 import { Injectable, Input } from '@angular/core';
-import { BehaviorSubject, Observable, debounce, debounceTime, distinctUntilChanged, filter } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export class SharedService {
 @Input() value: string = '';
 
-public valueObs: BehaviorSubject<string> = new BehaviorSubject<string>('');
+private valueObs: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 sort: string = '';
 direction: boolean = true;

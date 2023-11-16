@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WholeVideoData } from '../../../shared/types';
 import { YouTubeService } from '../../services/youTube.service';
@@ -11,7 +11,7 @@ import { YouTubeService } from '../../services/youTube.service';
 export class DetailsComponent {
   constructor(
     private route: ActivatedRoute,
-    private service: YouTubeService,
+    private youTubeService: YouTubeService,
     private router: Router
   ) {}
 
@@ -41,7 +41,7 @@ export class DetailsComponent {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.service.getWholeItemData(id).then((res) => {
+    this.youTubeService.getWholeItemData(id).then((res) => {
       this.item = res;
     });
   }

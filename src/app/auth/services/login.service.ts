@@ -5,12 +5,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 
 export class LoginService {
-
-    constructor(private router: Router) {}
-
     //loggedIn = false - user is not logged in
     loggedIn: boolean = false;
-    public valueObs: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private valueObs: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    constructor(private router: Router) {}
 
     setValue(value: boolean): void {
         this.valueObs.next(value);

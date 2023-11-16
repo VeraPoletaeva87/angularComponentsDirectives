@@ -13,18 +13,13 @@ import SharedModule from 'src/app/shared/modules/shared.module';
   imports: [CommonModule, SharedModule]
 })
 export class LoginBlockComponent {
+  public subscription : Subscription;
   loggedIn: boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {
     this.subscription = this.loginService.getValue().subscribe((value) => {
       this.loggedIn = value;
     })
-  }
-
-  public subscription : Subscription;
-
-  ngOnInit() {
-    this.loggedIn = this.loginService.isLoggedIn();
   }
 
   clickHandler() {
