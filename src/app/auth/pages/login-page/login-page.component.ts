@@ -28,12 +28,4 @@ export class LoginPageComponent {
       this.loginForm.markAllAsTouched();
     }
   }
-
-  updateLogin(e: Event) {
-    this.loginForm.patchValue({login: (e.target as HTMLInputElement).value});
-  }
-
-  updatePassword(e: Event) {
-    this.loginForm.patchValue({password: (e.target as HTMLInputElement).value});
-  }
 }

@@ -7,8 +7,7 @@
             required
             minlength
             maxlength
-            formControlName="title"
-            (change)="updateTitle($event)"/>
+            formControlName="title"/>
         <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="invalid">
              <div *ngIf="title?.errors?.['required']">
                 Please enter a title
@@ -25,8 +24,7 @@
             type="text"
             name="description"
             maxlength
-            formControlName="description"
-            (change)="updateDescription($event)"/>  
+            formControlName="description"/>  
             <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="invalid">
          <div *ngIf="description?.errors?.['maxlength']">
             The description is too long
@@ -38,8 +36,7 @@
             required
             minlength
             maxlength
-            formControlName="image"
-            (change)="updateImage($event)"/>
+            formControlName="image"/>
         <div *ngIf="image?.invalid && (image?.dirty || image?.touched)" class="invalid">
              <div *ngIf="image?.errors?.['required']">
                 Please enter a link to the image
@@ -51,8 +48,7 @@
             required
             minlength
             maxlength
-            formControlName="video"
-            (change)="updateVideo($event)"/>
+            formControlName="video"/>
         <div *ngIf="video?.invalid && (video?.dirty || video?.touched)" class="invalid">
              <div *ngIf="video?.errors?.['required']">
                 Please enter a link to the video
