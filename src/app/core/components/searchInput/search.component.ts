@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-search',
@@ -7,16 +6,12 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
-  @Output() searchEmitter = new EventEmitter<boolean>();
-  @Output() searchTextEmitter = new EventEmitter<string>();
+  @Output() searchText = new EventEmitter<string>();
 
-  constructor(
-    private sharedService: SharedService
-  ) {}
+  constructor() {}
 
   searchChangeHandler(e: Event) {
-    this.sharedService.searchTextChangeHandler((e.target as HTMLInputElement).value);
-    this.sharedService.updateComponent();
+    this.searchText.emit((e.target as HTMLInputElement).value);
   }
 
 }

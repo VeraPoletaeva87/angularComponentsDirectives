@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { LoginService } from '../../../auth/services/login.service';
+import { YouTubeService } from 'src/app/youTube/services/youTube.service';
 import { Router } from '@angular/router';
 
 interface EmitterValue {
@@ -17,17 +17,20 @@ export class HeaderComponent {
   @Output() sortEmitter = new EventEmitter<EmitterValue>();
   @Output() textEmitter = new EventEmitter<string>();
 
-  constructor(private loginService: LoginService,
-    private router: Router) {}
-
   showSettings: boolean = false;
+
+  constructor(private youTubeService: YouTubeService, private router: Router) {}
+
+  handleSearch(searchQuery: string) {
+    this.youTubeService.setSearchQuery(searchQuery);
+  }
 
   handleEventFromSettings() {
     this.showSettings = !this.showSettings;
   }
 
-  handleEventFromSort(value: EmitterValue) {
-    this.sortEmitter.emit(value);
+  handleEventFromSort(value: {value: string, direction: boolean}) {
+    this.youTubeService.setSortParams(value.value, value.direction);
   }
 
   cardCreateHandler() {
