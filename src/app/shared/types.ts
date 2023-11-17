@@ -23,8 +23,7 @@ export interface ResultData {
 export interface Statistics {
   likeCount: string,
   favoriteCount: string,
-  commentCount: string,
-  viewCount: string
+  commentCount: string
 };
 
 export interface Snippet {
@@ -61,12 +60,18 @@ export interface WholeVideoData {
 }
 
 export interface StatisticsData {
+  kind: string,
+  etag: string,
   items: [
-    {
-      kind: string,
-      etag: string,
-      id: string,
-      statistics: Statistics
+      {
+        kind: string,
+        etag: string,
+        id: string,
+        statistics: Statistics
+      }
+    ],
+    pageInfo: {
+      totalResults: number,
+      resultsPerPage: number
     }
-  ]
 }
