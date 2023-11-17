@@ -1,0 +1,9 @@
+<div class="search-block">
+    <input
+      class="input"
+      type="search"
+      id="search"
+      (change)="searchChangeHandler($event)"
+    />
+    <app-button (click)="this.searchClickHandler()">Search</app-button>
+  </div>

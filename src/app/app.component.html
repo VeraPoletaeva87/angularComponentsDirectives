@@ -1,1 +1,6 @@
-<div>YouTube task</div>
+<app-header (searchEmitter)="handleEventFromSearch()"
+            (sortEmitter)="handleEventFromSort($event)"
+            (textEmitter)="handleEventTextSearch($event)"></app-header>
+<div *ngIf="hasSearch">
+    <app-list [sort]="this.sort" [direction]="this.direction" [search]="this.searchText"></app-list>
+</div>
