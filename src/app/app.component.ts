@@ -1,8 +1,5 @@
-import { Component, Input } from '@angular/core';
-interface EmitterValue {
-  value: string, 
-  direction: boolean
-}
+import { Component } from '@angular/core';
+import { SharedService } from './shared/services/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -10,24 +7,5 @@ interface EmitterValue {
   styleUrls: ['./app.component.css'],
 })
 export default class AppComponent {
-  @Input() value: string = '';
-
-  hasSearch: boolean = false;
-  sort: string = '';
-  direction: boolean = true;
-  searchText: string = '';
-
-  handleEventFromSearch() {
-    this.hasSearch = true;
-  }
-
-  handleEventFromSort(value: EmitterValue) {
-    this.sort = value.value;
-    this.direction = value.direction;
-  }
-
-  handleEventTextSearch(value: string) {
-    this.searchText = value;
-  }
-
+  constructor(public service: SharedService) {}
 }

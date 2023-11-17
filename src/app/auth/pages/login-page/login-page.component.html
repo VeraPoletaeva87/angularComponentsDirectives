@@ -1,0 +1,14 @@
+<div class="login-block">
+    <div class="bold-text">Login</div>
+    <div class="small-text">login</div>
+    <input  class="input"
+            type="text"
+            value="{{this.login}}"
+            (change)="loginChangeHandler($event)"/>
+    <div class="small-text">password</div>
+    <input  class="input"
+            type="password"
+            value="{{this.password}}"
+            (change)="passwordChangeHandler($event)"/>
+    <app-button class="login-button" (click)="loginHandler()">Login</app-button>        
+</div>
