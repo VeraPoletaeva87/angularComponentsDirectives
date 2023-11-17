@@ -3,7 +3,7 @@
       <img src="assets/images/backIcon.png">
   </div>
   <div class="flex shadow">
-    <img class="image" src="{{ this.item.snippet.thumbnails.standard.url }}" />
+    <img class="image" src="{{ this.item.snippet.thumbnails.high.url }}" />
     <div class="info-block">
       <div>
         <div class="spread">
@@ -16,7 +16,7 @@
       <div class="statistics">
         <img src="assets/images/viewsIcon.png" />
         <span class="margin-small font-small">{{
-            this.item.statistics.viewCount
+            this.item.statistics.favoriteCount
         }}</span>
         <img class="margin-medium" src="assets/images/likesIcon.png" />
         <span class="margin-small font-small">{{
@@ -24,7 +24,7 @@
         }}</span>
         <img class="margin-medium" src="assets/images/dislikesIcon.png" />
         <span class="margin-small font-small">{{
-            this.item.statistics.dislikeCount
+            this.item.statistics.likeCount
         }}</span>
         <img class="margin-medium" src="assets/images/commentsIcon.png" />
         <span class="margin-small font-small">{{

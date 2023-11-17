@@ -1,5 +1,5 @@
 import { Injectable, Input } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 
 interface Props {
@@ -11,32 +11,31 @@ interface Props {
 export class SharedService {
 @Input() value: string = '';
 
-public valueObs: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+private valueObs: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-setValue(value: boolean): void {
-  this.valueObs.next(value);
-}
-
-getValue(): Observable<boolean> {
-  return this.valueObs.asObservable();
-}
-
-updateComponent(): void {
-  this.setValue(this.hasSearch);
-}
-
-
-hasSearch: boolean = false;
 sort: string = '';
 direction: boolean = true;
 searchText: string = '';
 
-handleEventFromSearch() {
-    this.hasSearch = true;
-  }
 
-  handleEventTextSearch(value: boolean) {
-    this.hasSearch = value;
-  }
+setValue(value: string): void {
+  this.valueObs.next(value);
+}
 
+getValue(): Observable<string> {
+  return this.valueObs.asObservable()
+  .pipe(
+    filter((value: string) => value.length >=3),
+    debounceTime(300),
+    distinctUntilChanged()
+  );
+}
+
+updateComponent(): void {
+  this.setValue(this.searchText);
+}
+
+searchTextChangeHandler(value: string) {
+  this.searchText = value;
+}
 }

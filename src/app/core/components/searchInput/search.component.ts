@@ -14,13 +14,9 @@ export class SearchComponent {
     private sharedService: SharedService
   ) {}
 
-  public searchClickHandler() {
-    this.sharedService.handleEventTextSearch(true);
-    this.sharedService.updateComponent();
-  }
-
   searchChangeHandler(e: Event) {
-    this.searchTextEmitter.emit((e.target as HTMLInputElement).value);
+    this.sharedService.searchTextChangeHandler((e.target as HTMLInputElement).value);
+    this.sharedService.updateComponent();
   }
 
 }

@@ -6,8 +6,7 @@
             type="text"
             formControlName="login"
             required
-            email
-            (change)="updateLogin($event)"/>
+            email/>
         <div *ngIf="login?.invalid && (login?.dirty || login?.touched)" class="invalid">
              <div *ngIf="login?.errors?.['required']">
                 Please enter a login email
@@ -21,8 +20,7 @@
             type="password"
             name="password"
             required
-            formControlName="password"
-            (change)="updatePassword($event)"/>  
+            formControlName="password"/>  
             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid">
          <div *ngIf="password?.errors?.['required']">
                 Please enter a password
@@ -31,6 +29,6 @@
             Your password isn't strong enough. {{password?.errors?.['passwordStrength']}}
         </div>
         </div>     
-        <app-button class="login-button" (click)="loginHandler()">Login</app-button>         
+        <app-button class="login-button">Login</app-button>         
     </form>      
 </div>
