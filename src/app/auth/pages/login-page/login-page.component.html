@@ -1,0 +1,36 @@
+<div class="login-block">
+    <div class="bold-text">Login</div>
+    <form [formGroup]="loginForm" (ngSubmit)="loginHandler()">
+        <label class="small-text" for="login">login </label>
+        <input  class="input {{login?.invalid && (login?.dirty || login?.touched) ? 'red-border' : ''}}"
+            type="text"
+            formControlName="login"
+            required
+            email
+            (change)="updateLogin($event)"/>
+        <div *ngIf="login?.invalid && (login?.dirty || login?.touched)" class="invalid">
+             <div *ngIf="login?.errors?.['required']">
+                Please enter a login email
+             </div>
+             <div *ngIf="login?.errors?.['email']">
+                The login email is invalid
+             </div>
+        </div>
+        <label class="small-text" for="password">password </label>
+        <input  class="input {{password?.invalid && (password?.dirty || password?.touched) ? 'red-border' : ''}}"
+            type="password"
+            name="password"
+            required
+            formControlName="password"
+            (change)="updatePassword($event)"/>  
+            <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid">
+         <div *ngIf="password?.errors?.['required']">
+                Please enter a password
+         </div>
+         <div class="invalid" *ngIf="password?.errors?.['passwordStrength']">
+            Your password isn't strong enough. {{password?.errors?.['passwordStrength']}}
+        </div>
+        </div>     
+        <app-button class="login-button" (click)="loginHandler()">Login</app-button>         
+    </form>      
+</div>
