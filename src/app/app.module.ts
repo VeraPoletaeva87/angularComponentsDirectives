@@ -7,6 +7,7 @@ import CoreModule from './core/modules/core.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ShortUrlInterceptor } from './youTube/services/httpInterceptor';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ShortUrlInterceptor } from './youTube/services/httpInterceptor';
     BrowserModule,
     CoreModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, {
     provide: HTTP_INTERCEPTORS,
