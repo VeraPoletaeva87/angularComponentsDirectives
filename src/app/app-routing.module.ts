@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DetailsComponent } from './youTube/pages/details/details.component';
 import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
 import { CreateCardComponent } from './youTube/pages/cardCreationForm/card.component';
+import { FavoriteComponent } from './youTube/pages/favorites/favorites.component';
 
 const routes: Routes = [
   { path: 'details/:id', component: DetailsComponent },
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'create-card',
     component: CreateCardComponent,
+  },
+  {
+    path: 'favorites',
+    component: FavoriteComponent,
   },
   { path: '**', component: PageNotFoundComponent },
 ];

@@ -33,6 +33,10 @@ export class HeaderComponent {
     this.youTubeService.setSortParams(value.value, value.direction);
   }
 
+  showFavoritesHandler() {
+    this.router.navigate(['/main/favorites']);
+  }
+
   cardCreateHandler() {
     this.router.navigate(['/create-card']);
   }

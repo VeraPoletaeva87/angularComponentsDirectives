@@ -1,4 +1,7 @@
 <div class="item-block border" [class]="this.borderColor">
+  <ng-container *ngIf="!item.custom">
+    <img class="above" [src]="this.favoriteIconSrc" (click)="favoriteHandler()"/>
+  </ng-container>
   <img class="image" src="{{ item.snippet.thumbnails.default.url }}" />
   <div class="flex-center">
     <img src="assets/images/viewsIcon.png" />

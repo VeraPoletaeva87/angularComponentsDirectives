@@ -5,6 +5,11 @@
     border-radius: 6px;
 }
 
+.above {
+    position: absolute;
+    z-index: 100;
+}
+
 .image {
     width: 90%;
     height: 40%;

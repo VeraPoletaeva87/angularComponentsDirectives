@@ -59,6 +59,11 @@ export interface WholeVideoData {
   statistics: Statistics
 }
 
+export interface WholeDataCustom extends WholeVideoData {
+  custom?: boolean,
+  favorite?: boolean
+}
+
 export interface StatisticsData {
   kind: string,
   etag: string,
@@ -74,4 +79,18 @@ export interface StatisticsData {
       totalResults: number,
       resultsPerPage: number
     }
-}
+  }
+
+  export interface CustomItem {
+    id: number,
+    title: string,
+    description: string,
+    image: string,
+    video: string
+  }
+
+  export interface VideoData {
+    id: number,
+    favorite: boolean,
+    custom: boolean
+  }

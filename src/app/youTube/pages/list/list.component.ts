@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { YouTubeService } from '../../services/youTube.service';
-import { WholeVideoData } from '../../../shared/types';
+import { WholeDataCustom } from '../../../shared/types';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ListComponent {
 
-  items$: Observable<WholeVideoData[]> = this.youTubeService.items$;
+  items$: Observable<WholeDataCustom[]> = this.youTubeService.items$;
 
   constructor(private youTubeService: YouTubeService) {}
 

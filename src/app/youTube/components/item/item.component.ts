@@ -1,7 +1,9 @@
 import { Component, Input, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
-import { WholeVideoData } from '../../../shared/types';
+import { WholeDataCustom } from '../../../shared/types';
 import { YouTubeService } from '../../services/youTube.service';
+import { Store } from '@ngrx/store';
+import { favoriteVideoReducer } from 'src/app/redux/reducers/favorites.reducer';
 
 @Component({
   selector: 'app-item',
@@ -9,10 +11,16 @@ import { YouTubeService } from '../../services/youTube.service';
   styleUrls: ['./item.component.css'],
 })
 export class ItemComponent {
-  @Input() item!: WholeVideoData;
+  @Input() item!: WholeDataCustom;
   borderColor: string = 'border-red';
 
-  constructor(private youTubeService: YouTubeService, private router: Router) {}
+  isFavorite: boolean = false;
+  favoriteIconSrc: string = 'assets/images/favorite.png';
+
+  constructor(
+    private youTubeService: YouTubeService, 
+    private router: Router,
+    private store: Store<{videoList: WholeDataCustom[]}>) {}
 
   @HostBinding('class') get color() {
     const publishDate = new Date(this.item.snippet.publishedAt);
@@ -36,6 +44,12 @@ export class ItemComponent {
     }
 
     return this.borderColor;
+  }
+
+  favoriteHandler() {
+    this.isFavorite = !this.isFavorite;
+    this.favoriteIconSrc = this.isFavorite ? 'assets/images/likesIcon.png' : 'assets/images/favorite.png';
+    //this.store.dispatch(favoriteVideoReducer.AddToFavorites({item}))
   }
 
   clickHandler() {

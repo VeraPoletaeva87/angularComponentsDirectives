@@ -8,7 +8,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ShortUrlInterceptor } from './youTube/services/httpInterceptor';
 import { StoreModule } from '@ngrx/store';
-
+import { customVideoReducer } from './redux/reducers/videoList.reducer';
 
 @NgModule({
   declarations: [AppComponent, SearchPipe],
@@ -17,7 +17,7 @@ import { StoreModule } from '@ngrx/store';
     CoreModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({videos: customVideoReducer}, {})
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, {
     provide: HTTP_INTERCEPTORS,
