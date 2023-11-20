@@ -4,28 +4,43 @@ import {
   ResultData,
   Statistics,
   StatisticsData,
-  WholeVideoData
+  WholeVideoData,
+  WholeDataCustom
 } from '../../shared/types';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, debounceTime, filter, from, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, debounceTime, filter, from, mergeMap, of, map, switchMap, tap } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { getItems } from 'src/app/redux/selectors/videoList.selector';
+import { State } from '../../redux/state.models';
 
 @Injectable({ providedIn: 'root' })
 export class YouTubeService {
-  API_KEY = 'AIzaSyB0fgxbiZ__2ZQKwB-Wa7kqEsq5cIVOi4Q';
+  API_KEY = 'AIzaSyCMFGPQRRaXj6uji1J4k4ZS6SF6BSFiBuM';
 
-  items$: Observable<WholeVideoData[]>;
-  //detail$: Observable<WholeVideoData>;
+  items$: Observable<WholeDataCustom[]>;
 
   private searchQuery$: BehaviorSubject<string> = new BehaviorSubject('');
   private sortDirection: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private detailId: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private store: Store<State>) {
     this.items$ = this.getItems$();
-   // this.detail$ = this.getDetail$();
   }
 
-  getDetail$(): Observable<WholeVideoData> {
+  getCustomItems(): WholeDataCustom[] {
+
+    const ls = localStorage.getItem('customCards');
+
+    let customItems: WholeDataCustom[] = [];
+    this.store
+    .pipe(
+      select((state) => getItems(state))
+    )
+  .subscribe((items: WholeDataCustom[]) => customItems = items)
+     return customItems;
+  }
+
+  getDetail$(): Observable<WholeDataCustom> {
     return this.detailId.pipe(
       switchMap((id: string) => this.getItem(id).pipe(
         mergeMap((data: Item) => {
@@ -39,7 +54,7 @@ export class YouTubeService {
     );
   }
 
-  getItems$(): Observable<WholeVideoData[]> {
+  getItems$(): Observable<WholeDataCustom[]> {
     return this.searchQuery$.pipe(
       filter((query: string) => query.length >= 3),
       debounceTime(300),
@@ -58,7 +73,8 @@ export class YouTubeService {
                   statistics: res,
                 });
               }),
-              map(() => wholeData)
+              map(() => wholeData.concat(this.getCustomItems())
+              )
             )
           )
         );

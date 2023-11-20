@@ -3,6 +3,7 @@
         <app-logo></app-logo>
         <app-search (searchText)="handleSearch($event)"></app-search>
         <app-settings class="margin" (settingsEmitter)="handleEventFromSettings()"></app-settings>
+        <app-button (click)=showFavoritesHandler() class="margin">Favorites</app-button> 
         <app-button (click)=cardCreateHandler() class="create-position">Create card</app-button> 
         <app-login-block class="login-position"></app-login-block>
     </div>

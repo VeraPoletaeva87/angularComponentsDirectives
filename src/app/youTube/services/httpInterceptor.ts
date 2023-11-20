@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 export class ShortUrlInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<string>, next: HttpHandler): Observable<HttpEvent<string>> {
         const modifiedReq = req.clone({
-            params: req.params.set( 'key', 'AIzaSyB0fgxbiZ__2ZQKwB-Wa7kqEsq5cIVOi4Q')
+            params: req.params.set( 'key', 'AIzaSyCMFGPQRRaXj6uji1J4k4ZS6SF6BSFiBuM')
         });
 
         return next.handle(modifiedReq);

@@ -7,7 +7,12 @@ import CoreModule from './core/modules/core.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ShortUrlInterceptor } from './youTube/services/httpInterceptor';
-
+import { StoreModule } from '@ngrx/store';
+import { customVideoReducer } from './redux/reducers/videoList.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { YouTubeEffects } from './redux/effects/youTube.effect';
+import { youTubeReducer } from './redux/reducers/youTube.reducer';
+import { DetailsEffects } from './redux/effects/details.effect';
 
 @NgModule({
   declarations: [AppComponent, SearchPipe],
@@ -15,7 +20,9 @@ import { ShortUrlInterceptor } from './youTube/services/httpInterceptor';
     BrowserModule,
     CoreModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({customVideos: customVideoReducer, youTubeVideos: youTubeReducer}, {}),
+    EffectsModule.forRoot([YouTubeEffects, DetailsEffects])
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, {
     provide: HTTP_INTERCEPTORS,
