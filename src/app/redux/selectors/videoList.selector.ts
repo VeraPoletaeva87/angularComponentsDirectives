@@ -1,10 +1,9 @@
 import { createSelector } from '@ngrx/store';
-import { State } from '../reducers/videoList.reducer';
-import { WholeDataCustom } from 'src/app/shared/types';
+import { State } from '../state.models';
 
-export const selectItems = (state: State) => state.videos.videoList;
-export const getItems = createSelector<State, WholeDataCustom[], WholeDataCustom[]>(
-    selectItems,
-    (list) => 
-    {return list }
+export const selectCustomVideoState = (state: State) => state.customVideos;
+export const getItems = createSelector(
+    selectCustomVideoState,
+    (state) => 
+    {return state.videoList}
 );

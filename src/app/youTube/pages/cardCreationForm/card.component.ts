@@ -55,7 +55,6 @@ export class CreateCardComponent {
     return this.cardForm.get('date');
   }
 
-
   cardSaveHandler() {
     if (!this.cardForm.invalid) {
       const item = {
@@ -95,7 +94,6 @@ export class CreateCardComponent {
       };
 
       this.store.dispatch(CustomVideoActions.AddCustomVideo({item}));
-
 
       this.router.navigate(['/main']);
     } else {

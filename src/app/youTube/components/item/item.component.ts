@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { WholeDataCustom } from '../../../shared/types';
 import { YouTubeService } from '../../services/youTube.service';
 import { Store } from '@ngrx/store';
-import { favoriteVideoReducer } from 'src/app/redux/reducers/favorites.reducer';
+import * as YouTubeActions from '../../../redux/actions/youTube.actions';
+import * as CustomVideoActions from '../../../redux/actions/videoList.actions';
+import { State } from '../../../redux/state.models';
 
 @Component({
   selector: 'app-item',
@@ -20,10 +22,10 @@ export class ItemComponent {
   constructor(
     private youTubeService: YouTubeService, 
     private router: Router,
-    private store: Store<{videoList: WholeDataCustom[]}>) {}
+    private store: Store<State>) {}
 
   @HostBinding('class') get color() {
-    const publishDate = new Date(this.item.snippet.publishedAt);
+    const publishDate = new Date(); //this.item.snippet.publishedAt
     let d = new Date();
     const halfYear = new Date(d.setMonth(d.getMonth() - 6));
     d = new Date();
@@ -47,13 +49,17 @@ export class ItemComponent {
   }
 
   favoriteHandler() {
-    this.isFavorite = !this.isFavorite;
-    this.favoriteIconSrc = this.isFavorite ? 'assets/images/likesIcon.png' : 'assets/images/favorite.png';
-    //this.store.dispatch(favoriteVideoReducer.AddToFavorites({item}))
+    this.item = {...this.item, favorite: this.item.favorite ? !this.item.favorite : true};
+    this.store.dispatch(YouTubeActions.AddToFavorites({item: this.item}));
+  }
+
+  deleteClickHandler() {
+    this.store.dispatch(CustomVideoActions.DeleteCustomVideo({id: this.item.id || ''}));
+    this.store.dispatch(YouTubeActions.DeleteCustomVideo({id: this.item.id || ''}));
   }
 
   clickHandler() {
-    this.youTubeService.setDetailId(this.item.id);
+    this.youTubeService.setDetailId(this.item.id || '');
     this.router.navigate(['/details/:id', { id: this.item.id }]);
   }
 }

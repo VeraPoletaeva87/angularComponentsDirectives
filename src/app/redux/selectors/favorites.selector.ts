@@ -1,10 +1,8 @@
 import { createSelector } from '@ngrx/store';
-import { State } from '../reducers/videoList.reducer';
-import { WholeDataCustom } from 'src/app/shared/types';
+import { selectYouTubeVideoState } from './youTube.selector';
 
-export const selectItems = (state: State) => state.videos.videoList;
-export const getFavorites = createSelector<State, WholeDataCustom[], WholeDataCustom[]>(
-    selectItems,
-    (list) => 
-    {return list.filter((item) => item.favorite === true) }
+export const getItems = createSelector(
+    selectYouTubeVideoState,
+    (state) => 
+    {return state.videoList.filter((item) => item.favorite === true)} 
 );

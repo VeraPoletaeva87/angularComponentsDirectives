@@ -11,11 +11,11 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, debounceTime, filter, from, mergeMap, of, map, switchMap, tap } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { getItems } from 'src/app/redux/selectors/videoList.selector';
-import { State } from '../../redux/reducers/videoList.reducer';
+import { State } from '../../redux/state.models';
 
 @Injectable({ providedIn: 'root' })
 export class YouTubeService {
-  API_KEY = 'AIzaSyB0fgxbiZ__2ZQKwB-Wa7kqEsq5cIVOi4Q';
+  API_KEY = 'AIzaSyCMFGPQRRaXj6uji1J4k4ZS6SF6BSFiBuM';
 
   items$: Observable<WholeDataCustom[]>;
 
@@ -28,16 +28,19 @@ export class YouTubeService {
   }
 
   getCustomItems(): WholeDataCustom[] {
+
+    const ls = localStorage.getItem('customCards');
+
     let customItems: WholeDataCustom[] = [];
     this.store
     .pipe(
       select((state) => getItems(state))
     )
-  .subscribe((items: WholeDataCustom[]) => customItems = items);
+  .subscribe((items: WholeDataCustom[]) => customItems = items)
      return customItems;
   }
 
-  getDetail$(): Observable<WholeVideoData> {
+  getDetail$(): Observable<WholeDataCustom> {
     return this.detailId.pipe(
       switchMap((id: string) => this.getItem(id).pipe(
         mergeMap((data: Item) => {

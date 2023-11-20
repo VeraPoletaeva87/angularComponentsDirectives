@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { FavoriteService } from './services/favorite.service';
 import { WholeDataCustom } from '../../../shared/types';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { State } from '../../../redux/state.models';
+import { Store } from '@ngrx/store';
+import { getItems } from 'src/app/redux/selectors/favorites.selector';
 
 @Component({
   selector: 'app-favorites',
@@ -10,10 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./favorites.component.css'],
 })
 export class FavoriteComponent {
-// change to favorites service
-  items: WholeDataCustom[] = this.favoriteService.getFavoriteItems();
+  items$: Observable<WholeDataCustom[]> = this.store.select(getItems);;
 
-  constructor(private favoriteService: FavoriteService,  private router: Router) {}
+  constructor(private router: Router, private store: Store<State>) {}
 
   backClickHandler() {
     this.router.navigate(['/main']);

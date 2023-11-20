@@ -5,13 +5,19 @@
   <div class="flex shadow">
     <img class="image" src="{{ this.item?.snippet?.thumbnails?.high?.url }}" />
     <div class="info-block">
+      <ng-container *ngIf="this.item?.custom !== true">
+        <img class="above" [src]="this.favoriteIconSrc" (click)="favoriteHandler()"/>
+      </ng-container>
+      <ng-container *ngIf="this.item?.custom">
+        <app-button class="form-button" (click)="cardDeleteHandler()">Delete</app-button>
+      </ng-container>
       <div>
         <div class="spread">
           <span class="title">{{ this.item?.snippet?.channelTitle  }} {{ this.item?.snippet?.title  }}</span>
           <span class="small">{{ this.item?.snippet?.publishedAt | date:"medium" }}</span>
         </div>
         <div class="description">Description:</div>
-        <div class="small">{{ this.item?.snippet?.description  }}</div>
+        <div class="small">{{ this.item?.snippet?.description }}</div>
       </div>
       <div class="statistics">
         <img src="assets/images/viewsIcon.png" />
@@ -33,5 +39,4 @@
       </div>
     </div>
   </div>
-
 </div>

@@ -34,7 +34,7 @@ export class HeaderComponent {
   }
 
   showFavoritesHandler() {
-    this.router.navigate(['/main/favorites']);
+    this.router.navigate(['/favorites']);
   }
 
   cardCreateHandler() {

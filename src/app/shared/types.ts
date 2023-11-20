@@ -54,9 +54,9 @@ export interface Snippet {
 }
 
 export interface WholeVideoData {
-  id: string,
-  snippet: Snippet,
-  statistics: Statistics
+  id?: string,
+  snippet?: Snippet,
+  statistics?: Statistics
 }
 
 export interface WholeDataCustom extends WholeVideoData {
