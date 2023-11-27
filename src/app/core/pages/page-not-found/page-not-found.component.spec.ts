@@ -2,14 +2,14 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PageNotFoundComponent } from './page-not-found.component';
-import  AppComponent  from '../../../app.component';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HeaderComponent } from '../../components/header/header.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
 describe('PageNotFoundComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+  let component: PageNotFoundComponent;
+  let fixture: ComponentFixture<PageNotFoundComponent>;
   let router: Router;
 
 
@@ -24,27 +24,33 @@ describe('PageNotFoundComponent', () => {
         ]),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      declarations: [HeaderComponent],
+      declarations: [PageNotFoundComponent],
       providers: [],
     }).compileComponents();
   });
 
   beforeEach(() => {
     router = TestBed.inject(Router);
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(PageNotFoundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
+  it('should render error message', async () => { 
+    const element = fixture.debugElement;
+    const errorSpan = element.query(By.css('.grey')).nativeElement;
+    expect(errorSpan.textContent).toContain('Sorry, smth went wrong');
+  });
 
-  it('should show page not fount component on invalid route', fakeAsync(() => { 
+
+  it('should go to main page on the back button click', async () => { 
     const spy = jest.spyOn(router, 'navigate');
-    router.navigate(['/non-existing-route']);
-    const cardComponent = fixture.nativeElement.querySelector('span');
-    expect(cardComponent).toContain('Sorry, smth went wrong');
-  
+    component.backClickHandler();
+    
+    expect(spy).toHaveBeenCalledWith(['/main']);
+
     spy.mockReset();
     spy.mockRestore();
-  }));
+  });
 });
 

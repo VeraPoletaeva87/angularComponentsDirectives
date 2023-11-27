@@ -3,11 +3,14 @@ import { DetailsComponent } from './details.component';
 import { WholeDataCustom } from 'src/app/shared/types';
 import { RouterTestingModule } from "@angular/router/testing";
 import { StoreModule } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { HeaderComponent } from '../../../core/components/header/header.component';
+import { By } from '@angular/platform-browser';
 
 describe('DetailsComponent', () => {
   let component: DetailsComponent;
   let fixture: ComponentFixture<DetailsComponent>;
-  let title: HTMLElement;
+  let router: Router;
 
   const testItem: WholeDataCustom = {
       snippet: {
@@ -15,7 +18,7 @@ describe('DetailsComponent', () => {
         title: 'Video Title',
         publishedAt: new Date,
         channelId: '',
-        description: '',
+        description: 'Test description',
         thumbnails: {
           default: {
             url: '',
@@ -45,18 +48,30 @@ describe('DetailsComponent', () => {
       declarations: [DetailsComponent],
       imports: [
         StoreModule.forRoot({}, {}),
-        RouterTestingModule
-      ]
+        RouterTestingModule.withRoutes([
+          { path: 'details/:id', component: DetailsComponent },
+          { path: "", component: HeaderComponent }
+      ])]
     });
+    router = TestBed.inject(Router);
     fixture = TestBed.createComponent(DetailsComponent);
     component = fixture.componentInstance;
-    title = fixture.nativeElement.querySelector('title');
+    fixture.detectChanges();
   });
 
-  it('title field should display a test title', () => {
+  it('should show correct data', () => {
     component.item = testItem;
     fixture.detectChanges();
-    
-    expect(title.textContent).toContain('Channel Title Video Title');
+    const element = fixture.debugElement;
+    let detailsElement = element.query(By.css('.description-text')).nativeElement;
+    expect(detailsElement.textContent).toContain('Test description');
+    detailsElement = element.query(By.css('.title')).nativeElement;
+    expect(detailsElement.textContent).toContain('Channel Title Video Title');
+  });
+
+  it('backClickHandler should navigate to main page', () => {
+    const spy = jest.spyOn(router, 'navigate');
+    component.backClickHandler();
+    expect(spy).toHaveBeenCalledWith(['/main']);
   });
 });

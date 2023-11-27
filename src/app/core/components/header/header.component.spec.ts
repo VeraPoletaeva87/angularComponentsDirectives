@@ -37,17 +37,14 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create header', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show card creation component on clicking create button', fakeAsync(() => { 
+  it('should go to card creation page on clicking create button', fakeAsync(() => { 
   const spy = jest.spyOn(router, 'navigate');
-  router.navigate(['/create-card']);
-
-  //expect(spy).toHaveBeenCalledWith(['/create-card']);
-  const cardComponent = fixture.nativeElement.querySelector('input');
-  expect(cardComponent).toBeTruthy();
+  component.cardCreateHandler();
+  expect(spy).toHaveBeenCalledWith(['/create-card']);
 
   spy.mockReset();
   spy.mockRestore();

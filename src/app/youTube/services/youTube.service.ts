@@ -143,7 +143,7 @@ export class YouTubeService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: string): Observable<T> => {
   
-      console.error(error); 
+     // console.error(error); 
   
       return of(result as T);
     };
