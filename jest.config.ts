@@ -1,5 +1,5 @@
 module.exports = {
     preset: 'jest-preset-angular',
     setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-    modulePaths: ["<rootDir>/src/"]
+    modulePaths: ["<rootDir>/src/"],
   };
