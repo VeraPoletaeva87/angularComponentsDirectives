@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { YouTubeService } from 'src/app/youTube/services/youTube.service';
+import { YouTubeService } from '../../../youTube/services/youTube.service';
 import { Router } from '@angular/router';
 
 interface EmitterValue {

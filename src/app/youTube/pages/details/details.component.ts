@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { WholeDataCustom } from '../../../shared/types';
 import { Store, select } from '@ngrx/store';
 import * as YouTubeActions from '../../../redux/actions/youTube.actions';
-import { getDetails } from 'src/app/redux/selectors/youTube.selector';
+import { getDetails } from '../../../redux/selectors/youTube.selector';
 import { Subscription, switchMap, tap } from 'rxjs';
 import { State } from '../../../redux/state.models';
 import * as CustomVideoActions from '../../../redux/actions/videoList.actions';
