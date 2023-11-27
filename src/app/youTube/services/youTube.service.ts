@@ -10,7 +10,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, debounceTime, filter, from, mergeMap, of, map, switchMap, tap } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { getItems } from 'src/app/redux/selectors/videoList.selector';
+import { getItems } from '../../redux/selectors/videoList.selector';
 import { State } from '../../redux/state.models';
 
 @Injectable({ providedIn: 'root' })
@@ -80,11 +80,11 @@ export class YouTubeService {
         );
       }),
       // wholeData[]
-      map((wholeData: WholeVideoData[]) => {
+      map((wholeData: WholeDataCustom[]) => {
         return wholeData.sort();
       }),
       // wholeData[] sorted
-      switchMap((wholeData: WholeVideoData[]) => {
+      switchMap((wholeData: WholeDataCustom[]) => {
         return this.sortDirection.pipe(
           map((direction: boolean) => {
             return wholeData.sort();
@@ -143,7 +143,7 @@ export class YouTubeService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: string): Observable<T> => {
   
-      console.error(error); 
+     // console.error(error); 
   
       return of(result as T);
     };

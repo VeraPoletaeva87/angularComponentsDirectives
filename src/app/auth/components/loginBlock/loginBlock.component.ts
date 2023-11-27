@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import SharedModule from 'src/app/shared/modules/shared.module';
+import SharedModule from '../../../shared/modules/shared.module';
 
 @Component({
   standalone: true,

@@ -1,21 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AuthenticationComponent } from './authentication.component';
+import { LoginBlockComponent } from './loginBlock.component';
+import SharedModule from '../../../shared/modules/shared.module';
 
 describe('AuthenticationComponent', () => {
-  let component: AuthenticationComponent;
-  let fixture: ComponentFixture<AuthenticationComponent>;
+  let component: LoginBlockComponent;
+  let fixture: ComponentFixture<LoginBlockComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [AuthenticationComponent]
-    });
-    fixture = TestBed.createComponent(AuthenticationComponent);
+
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LoginBlockComponent, SharedModule]
+    }).compileComponents(); 
+    fixture = TestBed.createComponent(LoginBlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create standalone component', () => {
     expect(component).toBeTruthy();
   });
 });
